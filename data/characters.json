@@ -1,0 +1,143 @@
+{
+  "allies": {
+    "usa_manhattan_project": [
+      {
+        "name": "J. Robert Oppenheimer",
+        "role": "Dyrektor naukowy Projektu Manhattan",
+        "specialization": "Fizyka teoretyczna"
+      },
+      {
+        "name": "Enrico Fermi",
+        "role": "Kierował zespołem pierwszego reaktora Chicago Pile-1",
+        "specialization": "Fizyka jądrowa, reaktory"
+      },
+      {
+        "name": "Niels Bohr",
+        "role": "Doradca naukowy projektu, teoria reakcji łańcuchowych",
+        "specialization": "Fizyka atomowa i jądrowa"
+      },
+      {
+        "name": "Richard Feynman",
+        "role": "Prace teoretyczne, obliczenia i analizy",
+        "specialization": "Fizyka teoretyczna"
+      },
+      {
+        "name": "Hans Bethe",
+        "role": "Szef wydziału teoretycznego w Los Alamos",
+        "specialization": "Fizyka jądrowa, mechanika kwantowa"
+      },
+      {
+        "name": "Edward Teller",
+        "role": "Udział w obliczeniach teoretycznych; późniejsze prace nad bronią termojądrową",
+        "specialization": "Fizyka teoretyczna"
+      },
+      {
+        "name": "Leo Szilard",
+        "role": "Współautor koncepcji reakcji łańcuchowej, inicjator listu do Roosevelta",
+        "specialization": "Fizyka jądrowa"
+      },
+      {
+        "name": "Eugene Wigner",
+        "role": "Udział przy projektowaniu reaktorów do produkcji plutonu",
+        "specialization": "Fizyka jądrowa, inżynieria reaktorowa"
+      },
+      {
+        "name": "Klaus Fuchs",
+        "role": "Teoretyk; równocześnie przekazywał informacje Związkowi Radzieckiemu (historyczny fakt)",
+        "specialization": "Fizyka teoretyczna"
+      },
+      {
+        "name": "John von Neumann",
+        "role": "Wkład matematyczny, obliczenia dotyczące fali uderzeniowej i kompresji",
+        "specialization": "Matematyka, fizyka obliczeniowa"
+      }
+    ],
+
+    "uk_maud_committee": [
+      {
+        "name": "Rudolf Peierls",
+        "role": "Współautor raportu MAUD; analiza krytycznej masy U-235",
+        "specialization": "Fizyka teoretyczna"
+      },
+      {
+        "name": "Otto Frisch",
+        "role": "Współtwórca koncepcji szybkiego rozszczepienia uranu",
+        "specialization": "Fizyka jądrowa"
+      },
+      {
+        "name": "James Chadwick",
+        "role": "Kierował brytyjskim programem Tube Alloys",
+        "specialization": "Fizyka jądrowa"
+      }
+    ],
+
+    "canada_and_uk_cooperation": [
+      {
+        "name": "George Laurence",
+        "role": "Kanadyjskie badania nad moderowanymi reaktorami",
+        "specialization": "Reaktory jądrowe"
+      }
+    ]
+  },
+
+  "axis": {
+    "germany_uranprojekt": [
+      {
+        "name": "Werner Heisenberg",
+        "role": "Główny fizyk teoretyczny programu Uranverein",
+        "specialization": "Mechanika kwantowa, fizyka jądrowa"
+      },
+      {
+        "name": "Carl Friedrich von Weizsäcker",
+        "role": "Prace teoretyczne nad energią jądrową",
+        "specialization": "Fizyka teoretyczna"
+      },
+      {
+        "name": "Walther Gerlach",
+        "role": "Koordynator programu atomowego III Rzeszy",
+        "specialization": "Fizyka doświadczalna"
+      },
+      {
+        "name": "Kurt Diebner",
+        "role": "Kierował drugim konkurencyjnym zespołem badawczym",
+        "specialization": "Fizyka jądrowa"
+      },
+      {
+        "name": "Otto Hahn",
+        "role": "Odkrywca rozszczepienia jąder uranu (1938)",
+        "specialization": "Chemia jądrowa"
+      },
+      {
+        "name": "Fritz Houtermans",
+        "role": "Wczesne teorie reakcji jądrowych",
+        "specialization": "Fizyka teoretyczna"
+      },
+      {
+        "name": "Paul Harteck",
+        "role": "Badania nad ciężką wodą i reakcjami moderowanymi",
+        "specialization": "Chemia fizyczna"
+      }
+    ],
+
+    "japan": [
+      {
+        "name": "Yoshio Nishina",
+        "role": "Szef japońskiego programu Ni-Project",
+        "specialization": "Fizyka jądrowa, fizyka cząstek"
+      },
+      {
+        "name": "Bunsaku Arakatsu",
+        "role": "Kierownik projektu F-Go",
+        "specialization": "Fizyka jądrowa"
+      }
+    ],
+
+    "italy": [
+      {
+        "name": "Franco Rasetti",
+        "role": "Wczesne włoskie badania nad neutronami (przed emigracją naukowców)",
+        "specialization": "Fizyka eksperymentalna"
+      }
+    ]
+  }
+}

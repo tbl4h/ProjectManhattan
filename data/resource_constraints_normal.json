@@ -1,0 +1,57 @@
+{
+  "money": {
+    "real_budget": 440000000,
+    "minimum_budget": 100000000,
+    "maximum_budget": 1000000000,
+
+    "preliminary_minimum": 20000,
+    "preliminary_maximum": 150000,
+
+    "infrastructure_minimum": 10000000,
+    "infrastructure_maximum": 20000000,
+
+    "full_scale_minimum": 60000000,
+    "full_scale_maximum": 80000000,
+
+    "fussed_fuel_minimum": 100000000,
+    "fussed_fuel_maximum": 120000000,
+
+    "bomb_assembly_minimum": 50000000,
+    "bomb_assembly_maximum": 60000000,
+
+    "wind_down_minimum": 4000000,
+    "wind_down_maximum": 6000000,
+    "initial_money": 5000000,
+    "initial_uranium": 0,
+    "initial_plutonium": 0,
+    "maximal_uranium": 1000000,
+    "maximal_plutonium": 500000,
+    "initial_morale": 60,
+    "initial_security": 40,
+    "minimal_total_morale": 0,
+    "maximal_total_morale": 100,
+    "minimal_total_security": 0,
+    "maximal_total_security": 100
+  },
+
+  "personnel": {
+    "worker_daily_cost": 1,
+    "worker_hiring_cost": 1,
+    "scientist_daily_cost": 5,
+    "scientist_hiring_cost": 5,
+    "engineer_daily_cost": 2,
+    "engineer_hiring_cost": 2,
+    "army_personnel_daily_cost": 3,
+    "army_personnel_hiring_cost": 3,
+
+    "total_numbers_of_all_personnel": 130000,
+    "initial_total_workers": 100000,
+    "maximum_total_workers": 1000000,
+    "initial_total_scientists": 3000,
+    "maximum_total_scientists": 50000,
+    "initial_total_engineers": 7000,
+    "maximum_total_engineers": 100000,
+    "initial_total_army_personnel": 20000,
+    "maximum_total_army_personnel": 200000
+  }
+}

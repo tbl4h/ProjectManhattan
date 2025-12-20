@@ -1,0 +1,527 @@
+{
+    "technologies": [
+        {
+            "id": "basic_physics",
+            "name": "Basics of Nuclear Physics",
+            "type": "theory",
+            "research_days": 30,
+            "prerequisites": [],
+            "description": "Understanding the basic principles of nuclear physics, including atomic structure and nuclear reactions.",
+            "money_cost": 1000,
+            "dayly_cost": 100,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 0,
+            "scientists_required": 10,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "uranium_enrichment",
+            "name": "Uranium Enrichment",
+            "type": "theory",
+            "research_days": 60,
+            "prerequisites": [
+                "basic_physics"
+            ],
+            "description": "Overview of principles for separating U-235 from natural uranium. Specific methods are unlocked as separate technologies.",
+            "money_cost": 5000,
+            "dayly_cost": 200,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 0,
+            "scientists_required": 20,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        
+        {
+            "id": "centrifuge_enrichment",
+            "name": "Centrifuge Enrichment",
+            "type": "theory",
+            "research_days": 80,
+            "prerequisites": [
+                "uranium_enrichment"
+            ],
+            "description": "Theoretical principles of isotope separation using high-speed centrifuges.",
+            "money_cost": 7000,
+            "dayly_cost": 300,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 0,
+            "scientists_required": 30,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "thermal_diffusion",
+            "name": "Thermal Diffusion",
+            "type": "theory",
+            "research_days": 50,
+            "prerequisites": [
+                "uranium_enrichment"
+            ],
+            "description": "Theory of isotope separation using temperature gradients.",
+            "money_cost": 4000,
+            "dayly_cost": 150,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 0,
+            "scientists_required": 15,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "gaseous_diffusion",
+            "name": "Gaseous Diffusion",
+            "type": "theory",
+            "research_days": 40,
+            "prerequisites": [
+                "uranium_enrichment"
+            ],
+            "description": "Theory of isotope separation through porous barriers exploiting molecular diffusion differences.",
+            "money_cost": 3000,
+            "dayly_cost": 120,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 0,
+            "scientists_required": 12,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "calutrons_enrichment",
+            "name": "Calutrons Enrichment",
+            "type": "theory",
+            "research_days": 30,
+            "prerequisites": [
+                "uranium_enrichment"
+            ],
+            "description": "Theory of electromagnetic isotope separation using charged ion beams.",
+            "money_cost": 6000,
+            "dayly_cost": 250,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 0,
+            "scientists_required": 25,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        
+        {
+            "id": "thermal_column_construction",
+            "name": "Thermal Column Construction",
+            "type": "engineering",
+            "research_days": 50,
+            "prerequisites": [
+                "thermal_diffusion"
+            ],
+            "description": "Engineering of vertical thermal columns necessary for temperature-gradient-based separation.",
+            "money_cost": 8000,
+            "dayly_cost": 300,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 15,
+            "scientists_required": 20,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "barrier_material_fabrication",
+            "name": "Barrier Material Fabrication",
+            "type": "engineering",
+            "research_days": 45,
+            "prerequisites": [
+                "gaseous_diffusion"
+            ],
+            "description": "Development of industrial porous barriers and stable gas-flow systems for diffusion plants.",
+            "money_cost": 9000,
+            "dayly_cost": 350,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 20,
+            "scientists_required": 15,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "calutrons",
+            "name": "Calutrons",
+            "type": "engineering",
+            "research_days": 80,
+            "prerequisites": [
+                "calutrons_enrichment"
+            ],
+            "description": "Engineering development of electromagnetic separators based on calutron designs.",
+            "money_cost": 12000,
+            "dayly_cost": 400,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 30,
+            "scientists_required": 25,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "magnetic_field_control",
+            "name": "Magnetic Field Control Systems",
+            "type": "engineering",
+            "research_days": 55,
+            "prerequisites": [
+                "calutrons"
+            ],
+            "description": "Improved magnetic control systems enabling more stable ion trajectories in electromagnetic separators.",
+            "money_cost": 7000,
+            "dayly_cost": 250,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 15,
+            "scientists_required": 20,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "ion_beam_diagnostics",
+            "name": "Ion Beam Diagnostics",
+            "type": "engineering",
+            "research_days": 40,
+            "prerequisites": [
+                "calutrons"
+            ],
+            "description": "Systems for monitoring and stabilizing ion beams used in electromagnetic separation devices.",
+            "money_cost": 5000,
+            "dayly_cost": 200,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 10,
+            "scientists_required": 15,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        
+        {
+            "id": "plutonium_production",
+            "name": "Plutonium Production",
+            "type": "theory",
+            "research_days": 90,
+            "prerequisites": [
+                "basic_physics"
+            ],
+            "description": "Theoretical foundations of converting uranium-238 into plutonium-239 using neutron absorption.",
+            "money_cost": 6000,
+            "dayly_cost": 220,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 0,
+            "scientists_required": 18,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        
+        {
+            "id": "graphite_reactor",
+            "name": "Graphite Reactor",
+            "type": "engineering",
+            "research_days": 70,
+            "prerequisites": [
+                "plutonium_production"
+            ],
+            "description": "Construction of a graphite-moderated reactor capable of sustained neutron flux for plutonium creation.",
+            "money_cost": 15000,
+            "dayly_cost": 500,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 25,
+            "scientists_required": 30,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "heavy_water_reactor",
+            "name": "Heavy Water Reactor",
+            "type": "engineering",
+            "research_days": 100,
+            "prerequisites": [
+                "plutonium_production"
+            ],
+            "description": "Engineering development of heavy-water-moderated reactors designed to enhance neutron economy.",
+            "money_cost": 20000,
+            "dayly_cost": 600,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 30,
+            "scientists_required": 35,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        
+        {
+            "id": "gun_type_assembly",
+            "name": "Gun-Type Assembly Theory",
+            "type": "theory",
+            "research_days": 90,
+            "prerequisites": [
+                "uranium_enrichment"
+            ],
+            "description": "Theoretical study of linear assembly concepts for uranium-based devices, focusing on general principles of rapid material convergence.",
+            "money_cost": 8000,
+            "dayly_cost": 250,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 25,
+            "scientists_required": 30,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "neutron_initiator_theory",
+            "name": "Neutron Initiator Theory",
+            "type": "theory",
+            "research_days": 70,
+            "prerequisites": [
+                "gun_type_assembly"
+            ],
+            "description": "General theoretical principles of initiating controlled neutron introduction for uranium-based systems without describing operational details.",
+            "money_cost": 6000,
+            "dayly_cost": 200,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 20,
+            "scientists_required": 25,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "neutron_diagnostic_instruments",
+            "name": "Neutron Diagnostic Instruments",
+            "type": "engineering",
+            "research_days": 60,
+            "prerequisites": [
+                "neutron_initiator_theory"
+            ],
+            "description": "Development of laboratory tools for observing theoretical neutron behavior in controlled environments.",
+            "money_cost": 7000,
+            "dayly_cost": 220,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 15,
+            "scientists_required": 20,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "implosion_design",
+            "name": "Implosion Design",
+            "type": "theory",
+            "research_days": 120,
+            "prerequisites": [
+                "plutonium_production"
+            ],
+            "description": "Theoretical framework for symmetric compression methods required for plutonium-based implosion systems.",
+            "money_cost": 15000,
+            "dayly_cost": 400,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 25,
+            "scientists_required": 30,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "high_energy_timing",
+            "name": "High-Energy Timing Systems",
+            "type": "theory",
+            "research_days": 80,
+            "prerequisites": [
+                "implosion_design"
+            ],
+            "description": "Research into high-precision timing synchronization required for theoretical multi-directional compression schemes.",
+            "money_cost": 10000,
+            "dayly_cost": 300,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 20,
+            "scientists_required": 25,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "core_behavior_modeling",
+            "name": "Fission Core Behavior Modeling",
+            "type": "theory",
+            "research_days": 110,
+            "prerequisites": [
+                "implosion_design"
+            ],
+            "description": "Mathematical modeling of theoretical plutonium core behavior under dynamic compression.",
+            "money_cost": 12000,
+            "dayly_cost": 350,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 25,
+            "scientists_required": 30,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "multi_stage_detonation",
+            "name": "Multi-Stage Detonation Theory",
+            "type": "theory",
+            "research_days": 100,
+            "prerequisites": [
+                "high_energy_timing"
+            ],
+            "description": "Theoretical exploration of sequential activation frameworks used in complex energetic systems.",
+            "money_cost": 11000,
+            "dayly_cost": 320,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 20,
+            "scientists_required": 25,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "symmetry_testing",
+            "name": "Symmetry Testing Framework",
+            "type": "engineering",
+            "research_days": 85,
+            "prerequisites": [
+                "core_behavior_modeling"
+            ],
+            "description": "Engineering of laboratory systems for studying theoretical compression symmetry and evaluating simulation outputs.",
+            "money_cost": 9000,
+            "dayly_cost": 280,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 15,
+            "scientists_required": 20,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        
+        {
+            "id": "military_intelligence",
+            "name": "Military Intelligence",
+            "type": "theory",
+            "research_days": 40,
+            "prerequisites": [],
+            "description": "Foundations of gathering and analyzing information on foreign military capabilities and intentions.",
+            "money_cost": 3000,
+            "dayly_cost": 150,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 0,
+            "scientists_required": 10,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "signal_interception",
+            "name": "Signal Interception",
+            "type": "engineering",
+            "research_days": 60,
+            "prerequisites": [
+                "military_intelligence"
+            ],
+            "description": "Development of technologies for intercepting and decoding enemy communications.",
+            "money_cost": 8000,
+            "dayly_cost": 300,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 20,
+            "scientists_required": 15,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "spy_networks",
+            "name": "Spy Networks",
+            "type": "engineering",
+            "research_days": 70,
+            "prerequisites": [
+                "military_intelligence"
+            ],
+            "description": "Establishment of covert human intelligence networks for gathering strategic information.",
+            "money_cost": 10000,
+            "dayly_cost": 350,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 15,
+            "scientists_required": 20,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        },
+        {
+            "id": "internal_security",
+            "name": "Internal Security",
+            "type": "engineering",
+            "research_days": 50,
+            "prerequisites": [
+                "military_intelligence"
+            ],
+            "description": "Techniques for protecting sensitive information and preventing espionage within the organization.",
+            "money_cost": 6000,
+            "dayly_cost": 200,
+            "uranium_required": 0,
+            "plutonium_required": 0,
+            "workers_required": 0,
+            "engineers_required": 10,
+            "scientists_required": 15,
+            "army_personnel_required": 0,
+            "building_required": [],
+            "characters_involved": []
+        }
+
+    ]
+}

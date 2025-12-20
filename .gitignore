@@ -1,0 +1,113 @@
+############################################################
+# Build artifacts
+############################################################
+
+# CMake build directories
+/build/
+build/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+
+############################################################
+# Dependencies (ExternalProject / FetchContent)
+############################################################
+
+# External dependencies build & install
+/deps/build/
+/deps/lib/
+/deps/src/
+/deps/.installed
+
+############################################################
+# Compiler artifacts
+############################################################
+
+# Object files
+*.o
+*.obj
+
+# Static / shared libraries
+*.a
+*.lib
+*.so
+*.so.*
+*.dll
+*.dylib
+
+# Executables
+*.exe
+Manhattan
+ManhattanTests
+
+############################################################
+# Debug / profiling
+############################################################
+
+# Debug symbols
+*.dSYM/
+*.pdb
+
+# Valgrind
+vgcore.*
+
+############################################################
+# IDE / editor files
+############################################################
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# CLion
+.idea/
+cmake-build-*/
+
+# QtCreator
+*.pro.user
+
+############################################################
+# OS-specific
+############################################################
+
+# Linux
+*~
+.#*
+core
+core.*
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+############################################################
+# Logs & runtime files
+############################################################
+
+# Logs
+*.log
+
+# Crash dumps
+*.dump
+
+############################################################
+# DO NOT IGNORE (important project data)
+############################################################
+
+# Explicitly keep game data & assets
+!data/
+!data/*.json
+!assets/
+!assets/ui/
+
+# Keep source & tests
+!src/
+!tests/
