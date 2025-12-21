@@ -6,3 +6,5 @@ Dodać do postaci historycznych gamę perków pierwszorzędnych i tych których 
 
 Do każdego badania można przypisać określoną postać specjalną, którą musimy pozyskać podczas rozgrywki.
 Każda taka postać daje dodatkowe bonusy do prowadzonych badań.
+
+Dodać znaczek zamknięcia w każdym oknie.

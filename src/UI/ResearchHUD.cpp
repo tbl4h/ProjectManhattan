@@ -10,13 +10,10 @@ void ResearchHUD::Draw(ResearchManager &manager)
     if (!m_visible)
         return;
 
-    bool open = true;
+    ImGui::Begin("Research", &m_visible, m_flags);
 
-    ImGui::Begin("Research", nullptr, m_flags);
-
-    if (!open)
+    if (!m_visible)
     {
-        m_visible = false;
         ImGui::End();
         return;
     }
@@ -173,8 +170,15 @@ void ResearchHUD::Draw(ResearchManager &manager)
 
 void ResearchHUD::DrawTechTree(ResearchManager &manager)
 {
-    ImGui::Begin("Technology Tree", nullptr, m_flags);
+    if(!m_visibleTechTree)
+        return;
+    
+    ImGui::Begin("Technology Tree", &m_visibleTechTree, m_flags);
 
+    if(!m_visibleTechTree){
+        ImGui::End();
+        return;
+    }
     ImGui::Text("Tech Tree (auto-generated)");
     ImGui::Separator();
     ImGui::Spacing();

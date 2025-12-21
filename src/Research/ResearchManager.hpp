@@ -20,7 +20,7 @@ using std::vector;
 enum class TechnologyType
 {
     Theory,
-    Engineering
+    Engineering,
 };
 
 enum class ResearchState

@@ -2,8 +2,8 @@
 #include <string>
 #include "../Core/header/TimeSystem.hpp"
 
-using std::string;
 using std::shared_ptr;
+using std::string;
 
 struct ResourceMissing
 {
@@ -77,7 +77,7 @@ struct ResourceConstraints
     unsigned short maximal_total_security = 100;
 
     // method
-    bool loadFromJson(const string& path);
+    bool loadFromJson(const string &path);
 };
 
 class ResourcesManager
@@ -85,7 +85,6 @@ class ResourcesManager
 public:
     ResourcesManager(ResourceConstraints &constraints, TimeDataModel &timeSystem);
     ~ResourcesManager() = default;
-    void onDayPassed(const TimeDataModel &timeModel);
     // Workers management
     bool hireWorkers(unsigned int count);
     bool fireWorkers(unsigned int count);
@@ -122,7 +121,7 @@ public:
     unsigned long dailyPersonnelCost() const;
     unsigned long tenDaysPersonnelCost() const;
     unsigned long thirtyDaysPersonnelCost() const;
-    // Getters for personnel counts 
+    // Getters for personnel counts
     unsigned int getTotalWorkers() const;
     unsigned int getWorkingWorkers() const;
     unsigned int getTotalScientists() const;
@@ -153,13 +152,14 @@ public:
     unsigned int getSecurity() const;
     bool addSecurity(unsigned int amount);
     bool reduceSecurity(unsigned int amount);
-    ResourceConstraints& getResourceConstraints() const;
+    ResourceConstraints &getResourceConstraints() const;
 
-
+private:
+    void onDayPassed(const TimeDataModel &timeModel);
 
 private:
     ResourceConstraints &m_resourceConstraints;
-    TimeDataModel& m_timeModel;
+    TimeDataModel &m_timeModel;
     shared_ptr<TimeDataModel::DayPassedCallback> m_dayObserverHandle;
     // Total amount of workerss possible to hire.
     unsigned int m_totalWorkers;
@@ -179,7 +179,7 @@ private:
     unsigned int m_totalArmyPersonnel;
     unsigned int m_workingArmyPersonnel;
     // Hired army personnel in the current day. Variable resets at the end of the day.
-    unsigned int m_hiredArmyPersonnelInDay; 
+    unsigned int m_hiredArmyPersonnelInDay;
 
     // Resource stats
     // If money is negative, m_morale and m_security decrease faster.

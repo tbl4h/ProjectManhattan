@@ -37,14 +37,12 @@ void ResourcesHUD::Draw(ResourcesManager& manager)
 
     if (!m_visible)
         return;
-    bool open = true;
 
-    ImGui::Begin("Resources & Personnel", nullptr, m_flags);
+    ImGui::Begin("Resources & Personnel", &m_visible, m_flags);
 
 
-    if (!open)
+    if (!m_visible)
     {
-        m_visible = false;
         ImGui::End();
         return;
     }

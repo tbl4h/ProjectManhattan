@@ -142,7 +142,7 @@ void ResourcesManager::onDayPassed(const TimeDataModel&)
     m_money -= dailyCost;
 
     // 2️⃣ Jeśli nie stać nas na utrzymanie
-    if (m_money < 0)
+    if (m_money <= 0)
     {
         // morale spada szybciej
         reduceMorale(2);

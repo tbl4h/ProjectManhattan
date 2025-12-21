@@ -107,9 +107,29 @@ int main()
         // =======================
         topBarHUD.Draw(ui);
 
-        dateHUD.SetVisible(ui.showDate);
-        researchHUD.SetVisible(ui.showResearch);
-        resourcesHUD.SetVisible(ui.showResources);
+        // --- Research window ---
+        static bool lastResearch = ui.showResearch;
+        if (ui.showResearch != lastResearch)
+        {
+            researchHUD.SetVisible(ui.showResearch);
+            lastResearch = ui.showResearch;
+        }
+
+        // --- Tech tree ---
+        static bool lastTechTree = ui.showTechTree;
+        if (ui.showTechTree != lastTechTree)
+        {
+            researchHUD.SetVisibleTechTree(ui.showTechTree);
+            lastTechTree = ui.showTechTree;
+        }
+
+        // --- Resources ---
+        static bool lastResources = ui.showResources;
+        if (ui.showResources != lastResources)
+        {
+            resourcesHUD.SetVisible(ui.showResources);
+            lastResources = ui.showResources;
+        }
 
         if (ui.showDate)
             dateHUD.Draw(timeModel);
@@ -122,6 +142,10 @@ int main()
 
         if (ui.showResources)
             resourcesHUD.Draw(resourcesManager);
+
+        ui.showResources = resourcesHUD.IsVisible();
+        ui.showResearch = researchHUD.IsVisible();
+        ui.showTechTree = researchHUD.IsTechTreeVisible();
 
         // =======================
         // RENDER

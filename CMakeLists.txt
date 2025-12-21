@@ -91,6 +91,11 @@ add_executable(ManhattanTests
     ${TEST_SOURCES}
     src/Core/header/TimeSystem.hpp
     src/Core/src/TimeSystem.cpp
+    src/Research/ResearchManager.hpp
+    src/Research/ResearchManager.cpp
+    src/Resources/ResourcesManager.hpp
+    src/Resources/ResourcesManager.cpp
+
 )
 
 target_include_directories(ManhattanTests PRIVATE src)
