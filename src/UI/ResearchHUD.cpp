@@ -5,9 +5,21 @@
 #include "ResearchHUD.hpp"
 #include <format>
 
-void ResearchHUD::Draw(ResearchManager& manager)
+void ResearchHUD::Draw(ResearchManager &manager)
 {
+    if (!m_visible)
+        return;
+
+    bool open = true;
+
     ImGui::Begin("Research", nullptr, m_flags);
+
+    if (!open)
+    {
+        m_visible = false;
+        ImGui::End();
+        return;
+    }
 
     ImGui::Text("Research Tree");
     ImGui::Separator();
@@ -16,7 +28,7 @@ void ResearchHUD::Draw(ResearchManager& manager)
     // ============================================================
     // 1. ACTIVE RESEARCH (TOP PANEL)
     // ============================================================
-    if (const Technology* active = manager.getActiveResearch())
+    if (const Technology *active = manager.getActiveResearch())
     {
         float progress =
             static_cast<float>(active->m_progressDays) /
@@ -52,11 +64,11 @@ void ResearchHUD::Draw(ResearchManager& manager)
     // ============================================================
     // 2. TECHNOLOGY LIST
     // ============================================================
-    for (const auto& [id, tech] : manager.getAllTechnologies())
+    for (const auto &[id, tech] : manager.getAllTechnologies())
     {
-        bool isCompleted  = tech.isCompleted();
+        bool isCompleted = tech.isCompleted();
         bool isInProgress = tech.isInProgress();
-        bool isAvailable  = manager.isAvailable(id);
+        bool isAvailable = manager.isAvailable(id);
 
         bool isLocked = !isAvailable && !isCompleted && !isInProgress;
 
@@ -111,7 +123,7 @@ void ResearchHUD::Draw(ResearchManager& manager)
             {
                 ImGui::Separator();
                 ImGui::Text("Requires:");
-                for (const auto& pre : tech.m_prerequisites)
+                for (const auto &pre : tech.m_prerequisites)
                     ImGui::BulletText("%s", pre.c_str());
             }
 

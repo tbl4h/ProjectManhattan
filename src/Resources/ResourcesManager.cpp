@@ -9,8 +9,9 @@ using std::ifstream;
 using json = nlohmann::json;
 using std::clamp;
 using std::min;
+using std::make_shared;
 
-bool ResourceConstraints::loadFromJson(const std::string &path)
+bool ResourceConstraints::loadFromJson(const string &path)
 {
     ifstream file(path);
     if (!file.is_open())
@@ -98,7 +99,7 @@ bool ResourceConstraints::loadFromJson(const std::string &path)
     return true;
 }
 
-ResourcesManager::ResourcesManager(ResourceConstraints &constraints)
+ResourcesManager::ResourcesManager(ResourceConstraints &constraints, TimeDataModel &timeSystem)
     : m_resourceConstraints(constraints),
       m_totalWorkers(constraints.initial_total_workers),
       m_workingWorkers(0),
@@ -116,9 +117,47 @@ ResourcesManager::ResourcesManager(ResourceConstraints &constraints)
       m_uranium(constraints.initial_uranium),
       m_plutonium(constraints.initial_plutonium),
       m_totalMorale(constraints.initial_morale),
-      m_totalSecurity(constraints.initial_security)
+      m_totalSecurity(constraints.initial_security),
+      m_timeModel(timeSystem)    
 {
+    m_dayObserverHandle =
+        make_shared<TimeDataModel::DayPassedCallback>(
+            [this](const TimeDataModel& t)
+            {
+                onDayPassed(t);
+            });
+
+    m_timeModel.addDayObserver(m_dayObserverHandle);
 }
+
+void ResourcesManager::onDayPassed(const TimeDataModel&)
+{
+    // 1️⃣ Dzienne koszty personelu
+    long dailyCost =
+        dailyWorkersCost() +
+        dailyScientistsCost() +
+        dailyEngineersCost() +
+        dailyArmyPersonnelCost();
+
+    m_money -= dailyCost;
+
+    // 2️⃣ Jeśli nie stać nas na utrzymanie
+    if (m_money < 0)
+    {
+        // morale spada szybciej
+        reduceMorale(2);
+        reduceSecurity(1);
+    }
+    else
+    {
+        // stabilny projekt
+        addMorale(1);
+    }
+
+    // 3️⃣ Reset liczników dziennych
+    resetDailyHiredPersonnelCounts();
+}
+
 
 bool ResourcesManager::hireWorkers(unsigned int count)
 {

@@ -8,9 +8,12 @@
 #include "imgui.h"
 #include "backends/imgui_impl_sdl3.h"
 #include "backends/imgui_impl_opengl3.h"
+
 #include "UI/DateHUD.hpp"
 #include "UI/ResearchHUD.hpp"
 #include "UI/ResourcesHUD.hpp"
+#include "UI/TopBarHUD.hpp"
+
 #include <format>
 
 int main()
@@ -24,7 +27,9 @@ int main()
 
     SDL_GLContext gl_context = SDL_GL_CreateContext(window);
 
-    // --- IMGUI
+    // =======================
+    // IMGUI SETUP
+    // =======================
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
 
@@ -34,20 +39,52 @@ int main()
     ImGui_ImplSDL3_InitForOpenGL(window, gl_context);
     ImGui_ImplOpenGL3_Init("#version 150");
 
-    TimeDataModel timeModel; // <-- TWÓJ MODEL
-    ResourceConstraints resourceModel; // <-- TWÓJ MODEL
-    resourceModel.loadFromJson("./../data/resource_constraints_normal.json");
-    ResourcesManager resourcesManager(resourceModel);
+    // =======================
+    // CORE MODELS
+    // =======================
+    TimeDataModel timeModel;
+
+    ResourceConstraints resourceModel;
+    resourceModel.loadFromJson(
+        "./../data/resource_constraints_normal.json");
+
+    ResourcesManager resourcesManager(resourceModel, timeModel);
+
+    // =======================
+    // HUDs
+    // =======================
+    UIVisibility ui;
+    TopBarHUD topBarHUD;
     DateHUD dateHUD;
     ResearchHUD researchHUD;
     ResourcesHUD resourcesHUD;
 
-    auto researchManager = std::make_shared<ResearchManager>(timeModel, resourcesManager);
-    researchManager->loadFromJson("./../data/technologies.json");
+    // =======================
+    // RESEARCH SYSTEM
+    // =======================
+    ResearchManager researchManager(
+        timeModel,
+        resourcesManager);
 
-    researchHUD.RegisterListeners(*researchManager);
+    researchManager.loadFromJson(
+        "./../data/technologies.json");
 
+    // 🔴 KLUCZOWE POŁĄCZENIE: brak surowców → ResourcesHUD
+    researchManager.addResearchMissingResourcesListener(
+        [&](const ResourceMissing &missing,
+            const Technology &tech)
+        {
+            resourcesHUD.OnResearchMissingResources(
+                missing,
+                tech);
+        });
 
+    // standardowe listenery ResearchHUD (completed, itp.)
+    researchHUD.RegisterListeners(researchManager);
+
+    // =======================
+    // MAIN LOOP
+    // =======================
     bool running = true;
     while (running)
     {
@@ -60,35 +97,54 @@ int main()
                 running = false;
         }
 
-        // New ImGui frame
+        // ---- ImGui frame ----
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
 
-        // --------------------------------------------------
-        // YOUR HUD
-        // --------------------------------------------------
-        dateHUD.Draw(timeModel);
-        researchHUD.Draw(*researchManager);
-        researchHUD.DrawTechTree(*researchManager);
-        resourcesHUD.Draw(resourcesManager);
-        
+        // =======================
+        // DRAW HUDs
+        // =======================
+        topBarHUD.Draw(ui);
 
-        // render
+        dateHUD.SetVisible(ui.showDate);
+        researchHUD.SetVisible(ui.showResearch);
+        resourcesHUD.SetVisible(ui.showResources);
+
+        if (ui.showDate)
+            dateHUD.Draw(timeModel);
+
+        if (ui.showResearch)
+            researchHUD.Draw(researchManager);
+
+        if (ui.showTechTree)
+            researchHUD.DrawTechTree(researchManager);
+
+        if (ui.showResources)
+            resourcesHUD.Draw(resourcesManager);
+
+        // =======================
+        // RENDER
+        // =======================
         ImGui::Render();
-        glViewport(0, 0,
-                   (int)io.DisplaySize.x,
-                   (int)io.DisplaySize.y);
+
+        glViewport(
+            0, 0,
+            (int)io.DisplaySize.x,
+            (int)io.DisplaySize.y);
 
         glClearColor(0.f, 0.f, 0.f, 1.f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        ImGui_ImplOpenGL3_RenderDrawData(
+            ImGui::GetDrawData());
 
         SDL_GL_SwapWindow(window);
     }
 
-    // cleanup
+    // =======================
+    // CLEANUP
+    // =======================
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplSDL3_Shutdown();
     ImGui::DestroyContext();

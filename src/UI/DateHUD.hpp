@@ -5,7 +5,9 @@
 class DateHUD
 {
 public:
-    void Draw(TimeDataModel& time);
+    void Draw(TimeDataModel &time);
+    bool IsVisible() const { return m_visible; }
+    void SetVisible(bool v) { m_visible = v; }
 
 private:
     ImVec2 m_position;
@@ -16,5 +18,5 @@ private:
         ImGuiWindowFlags_NoResize |
         ImGuiWindowFlags_NoScrollbar |
         ImGuiWindowFlags_NoBackground; // fajnie wygląda jak overlay
-
+    bool m_visible = true;
 };

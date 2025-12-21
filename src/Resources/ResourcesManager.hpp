@@ -1,7 +1,21 @@
 #pragma once
 #include <string>
+#include "../Core/header/TimeSystem.hpp"
 
 using std::string;
+using std::shared_ptr;
+
+struct ResourceMissing
+{
+    bool money = false;
+    bool uranium = false;
+    bool plutonium = false;
+
+    bool workers = false;
+    bool engineers = false;
+    bool scientists = false;
+    bool army = false;
+};
 
 struct ResourceConstraints
 {
@@ -69,8 +83,9 @@ struct ResourceConstraints
 class ResourcesManager
 {
 public:
-    ResourcesManager(ResourceConstraints &constraints);
+    ResourcesManager(ResourceConstraints &constraints, TimeDataModel &timeSystem);
     ~ResourcesManager() = default;
+    void onDayPassed(const TimeDataModel &timeModel);
     // Workers management
     bool hireWorkers(unsigned int count);
     bool fireWorkers(unsigned int count);
@@ -141,8 +156,11 @@ public:
     ResourceConstraints& getResourceConstraints() const;
 
 
+
 private:
     ResourceConstraints &m_resourceConstraints;
+    TimeDataModel& m_timeModel;
+    shared_ptr<TimeDataModel::DayPassedCallback> m_dayObserverHandle;
     // Total amount of workerss possible to hire.
     unsigned int m_totalWorkers;
     // Currently working workers.

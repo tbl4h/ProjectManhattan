@@ -7,15 +7,15 @@
 #include <unordered_map>
 #include "./../Core/header/TimeSystem.hpp"
 #include "./../Resources/ResourcesManager.hpp"
-// #include "nlohmann/json.hpp"
+
 
 using std::enable_shared_from_this;
+using std::function;
 using std::optional;
 using std::shared_ptr;
 using std::string;
 using std::unordered_map;
 using std::vector;
-using std::function;
 
 enum class TechnologyType
 {
@@ -30,6 +30,8 @@ enum class ResearchState
     InProgress,
     Completed
 };
+
+
 
 struct Technology
 {
@@ -65,23 +67,27 @@ public:
     using ResearchCompletedCallback =
         function<void(const Technology &)>;
 
-        ResearchManager(TimeDataModel &timeModel, ResourcesManager &resources);
-        ~ResearchManager() = default;
-        
-        void loadFromJson(const string &path);
-        
-        bool startResearch(const string &techId);
-        void onDayPassed(const TimeDataModel &time);
-        
-        bool isCompleted(const string &techId) const;
-        bool isAvailable(const string &techId) const;
-        float getProgress(const string &techId) const;
-        
-        const unordered_map<string, Technology> &
-        getAllTechnologies() const { return m_techs; }
-        const Technology *getActiveResearch() const;
+    using ResearchMissingResourcesCallback =
+        function<void(const ResourceMissing &, const Technology &)>;
 
-        void addResearchCompletedListener(ResearchCompletedCallback cb);
+    ResearchManager(TimeDataModel &timeModel, ResourcesManager &resources);
+    ~ResearchManager() = default;
+
+    void loadFromJson(const string &path);
+
+    bool startResearch(const string &techId);
+    void onDayPassed(const TimeDataModel &time);
+
+    bool isCompleted(const string &techId) const;
+    bool isAvailable(const string &techId) const;
+    float getProgress(const string &techId) const;
+
+    const unordered_map<string, Technology> &
+    getAllTechnologies() const { return m_techs; }
+    const Technology *getActiveResearch() const;
+
+    void addResearchCompletedListener(ResearchCompletedCallback cb);
+    void addResearchMissingResourcesListener(ResearchMissingResourcesCallback cb);
 
 private:
     void updateAvailability();
@@ -96,4 +102,5 @@ private:
     optional<string> m_activeResearchId;
 
     vector<ResearchCompletedCallback> m_researchCompletedListeners;
+    vector<ResearchMissingResourcesCallback> m_missingResourcesListeners;
 };

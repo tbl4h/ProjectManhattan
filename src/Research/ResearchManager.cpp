@@ -90,44 +90,54 @@ bool ResearchManager::startResearch(const string& techId)
 
     Technology& tech = it->second;
 
-    // Czy można rozpocząć
     if (!tech.isAvailable() && !tech.isInProgress())
         return false;
 
-    // Pierwsze rozpoczęcie → koszt
+    ResourceMissing missing;
+
+    if (m_resources.getMoney() < tech.m_moneyCost)
+        missing.money = true;
+
+    if (m_resources.getUranium() < tech.m_uraniumRequired)
+        missing.uranium = true;
+
+    if (m_resources.getPlutonium() < tech.m_plutoniumRequired)
+        missing.plutonium = true;
+    
+    if (m_resources.getWorkingScientists() < tech.m_scientistsRequired)
+        missing.scientists = true;
+
+    if (m_resources.getWorkingEngineers() < tech.m_engineersRequired)
+        missing.engineers = true;
+
+    if (m_resources.getWorkingWorkers() < tech.m_workersRequired)
+        missing.workers = true;
+
+    if (m_resources.getWorkingArmyPersonnel() < tech.m_armyPersonnelRequired)
+        missing.army = true;
+
+    // Jeśli cokolwiek brakuje → event + abort
+    if (missing.money || missing.uranium || missing.plutonium ||
+        missing.scientists || missing.engineers ||
+        missing.workers || missing.army)
+    {
+        for (auto& cb : m_missingResourcesListeners)
+            cb(missing, tech);
+
+        return false;
+    }
+
+    // koszt jednorazowy
     if (!tech.isInProgress())
     {
-        if (m_resources.getMoney() < tech.m_moneyCost)
-            return false;
-        if (m_resources.getUranium() < tech.m_uraniumRequired)
-            return false;
-        if (m_resources.getPlutonium() < tech.m_plutoniumRequired)
-            return false;
-        if (m_resources.getWorkingWorkers() < tech.m_workersRequired)
-            return false;
-        if (m_resources.getWorkingEngineers() < tech.m_engineersRequired)
-            return false;
-        if (m_resources.getWorkingScientists() < tech.m_scientistsRequired)
-            return false;
-        if (m_resources.getWorkingArmyPersonnel() < tech.m_armyPersonnelRequired)
-            return false;
-
-        if (!m_resources.spendMoney(tech.m_moneyCost) && !m_resources.spendUranium(tech.m_uraniumRequired)
-            && !m_resources.spendPlutonium(tech.m_plutoniumRequired)
-            && !m_resources.hireWorkers(tech.m_workersRequired)
-            && !m_resources.hireEngineers(tech.m_engineersRequired)
-            && !m_resources.hireScientists(tech.m_scientistsRequired)
-            && !m_resources.hireArmyPersonnel(tech.m_armyPersonnelRequired))
-            return false;
-
+        m_resources.spendMoney(tech.m_moneyCost);
         tech.m_state = ResearchState::InProgress;
     }
 
-    // ✅ zapisujemy ID technologii
     m_activeResearchId = tech.m_id;
-
     return true;
 }
+
 
 void ResearchManager::onDayPassed(const TimeDataModel&)
 {
@@ -200,4 +210,10 @@ void ResearchManager::addResearchCompletedListener(
     ResearchCompletedCallback cb)
 {
     m_researchCompletedListeners.push_back(move(cb));
+}
+
+void ResearchManager::addResearchMissingResourcesListener(
+    ResearchMissingResourcesCallback cb)
+{
+    m_missingResourcesListeners.push_back(std::move(cb));
 }

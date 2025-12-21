@@ -458,7 +458,7 @@
             "workers_required": 0,
             "engineers_required": 0,
             "scientists_required": 10,
-            "army_personnel_required": 0,
+            "army_personnel_required": 10,
             "building_required": [],
             "characters_involved": []
         },
