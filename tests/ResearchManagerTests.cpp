@@ -173,10 +173,9 @@ TEST_F(ResearchManagerTest, MissingResourcesCallbackIsCalled)
     resources.fireScientists(100); // brak naukowców
 
     research.addResearchMissingResourcesListener(
-        [&](const ResourceMissing &, const Technology &tech)
+        [&](const ResourceMissing &)
         {
             called = true;
-            EXPECT_EQ(tech.m_id, "basic_physics");
         });
 
     EXPECT_FALSE(research.startResearch("basic_physics"));

@@ -68,7 +68,7 @@ public:
         function<void(const Technology &)>;
 
     using ResearchMissingResourcesCallback =
-        function<void(const ResourceMissing &, const Technology &)>;
+        function<void(const ResourceMissing &)>;
 
     ResearchManager(TimeDataModel &timeModel, ResourcesManager &resources);
     ~ResearchManager() = default;

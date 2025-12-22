@@ -73,6 +73,9 @@ add_executable(Manhattan
 
     src/Resources/ResourcesManager.hpp
     src/Resources/ResourcesManager.cpp
+    src/Resources/ResourceConstraints.hpp
+    src/Resources/ResourceConstraints.cpp 
+    src/Resources/ResourceMissing.hpp 
 )
 
 target_include_directories(Manhattan PRIVATE src)

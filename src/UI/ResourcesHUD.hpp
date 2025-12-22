@@ -12,8 +12,7 @@ public:
 
     void Draw(ResourcesManager &manager);
     void OnResearchMissingResources(
-        const ResourceMissing &missing,
-        const Technology &tech);
+        const ResourceMissing &missing);
     bool IsVisible() const override { return m_visible; }
     void SetVisible(bool v) override { m_visible = v; }
 

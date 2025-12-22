@@ -183,8 +183,7 @@ void ResourcesHUD::DrawFacilityStats(ResourcesManager& manager)
 // EVENT FROM RESEARCH MANAGER
 // =====================================================
 void ResourcesHUD::OnResearchMissingResources(
-    const ResourceMissing& missing,
-    const Technology&)
+    const ResourceMissing& missing)
 {
     m_misingResources = missing;
 

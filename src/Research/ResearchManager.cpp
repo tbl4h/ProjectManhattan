@@ -122,7 +122,7 @@ bool ResearchManager::startResearch(const string& techId)
         missing.workers || missing.army)
     {
         for (auto& cb : m_missingResourcesListeners)
-            cb(missing, tech);
+            cb(missing);
 
         return false;
     }

@@ -89,9 +89,9 @@ int main()
 
     // brak surowców → ResourcesHUD
     researchManager.addResearchMissingResourcesListener(
-        [&](const ResourceMissing &missing, const Technology &tech)
+        [&](const ResourceMissing &missing)
         {
-            resourcesHUD.OnResearchMissingResources(missing, tech);
+            resourcesHUD.OnResearchMissingResources(missing);
         });
 
     // =======================
