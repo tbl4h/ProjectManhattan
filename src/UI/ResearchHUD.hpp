@@ -1,20 +1,21 @@
 #pragma once
 #include "imgui.h"
 #include "../Research/ResearchManager.hpp"
+#include "IHUD.hpp"
 #include <string>
 
 using std::string;
 
-class ResearchHUD
+class ResearchHUD : public IHUD
 {
 public:
     ResearchHUD() = default;
     void Draw(ResearchManager &manager);
     void DrawTechTree(ResearchManager &manager);
     void RegisterListeners(ResearchManager &manager);
-    bool IsVisible() const { return m_visible; }
+    bool IsVisible() const override { return m_visible; }
     bool IsTechTreeVisible() const { return m_visibleTechTree; }
-    void SetVisible(bool v) { m_visible = v; }
+    void SetVisible(bool v) override { m_visible = v; }
     void SetVisibleTechTree(bool v) { m_visibleTechTree = v; }
 
 private:

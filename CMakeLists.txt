@@ -58,6 +58,15 @@ add_executable(Manhattan
     src/UI/ResourcesHUD.cpp
     src/UI/TopBarHUD.hpp
     src/UI/TopBarHUD.cpp
+    src/UI/UIVisibility.hpp
+    src/UI/IHUD.hpp
+    src/UI/UISync.hpp
+    src/UI/ResearchHUDController.hpp
+    src/UI/ResearchHUDController.cpp
+    src/UI/ResearchListHUD.hpp
+    src/UI/ResearchListHUD.cpp
+    src/UI/TechTreeHUD.hpp
+    src/UI/TechTreeHUD.cpp
 
     src/Research/ResearchManager.hpp
     src/Research/ResearchManager.cpp

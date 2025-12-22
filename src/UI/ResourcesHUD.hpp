@@ -3,8 +3,9 @@
 #include "imgui.h"
 #include "../Resources/ResourcesManager.hpp"
 #include "../Research/ResearchManager.hpp"
+#include "IHUD.hpp"
 
-class ResourcesHUD
+class ResourcesHUD : public IHUD
 {
 public:
     ResourcesHUD();
@@ -13,8 +14,8 @@ public:
     void OnResearchMissingResources(
         const ResourceMissing &missing,
         const Technology &tech);
-    bool IsVisible() const { return m_visible; }
-    void SetVisible(bool v) { m_visible = v; }
+    bool IsVisible() const override { return m_visible; }
+    void SetVisible(bool v) override { m_visible = v; }
 
 private:
     void DrawMoney(ResourcesManager &manager);

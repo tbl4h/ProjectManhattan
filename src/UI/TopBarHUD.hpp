@@ -1,6 +1,8 @@
 #pragma once
 #include "imgui.h"
+#include "UIVisibility.hpp"
 
+/*
 struct UIVisibility
 {
     bool showDate = true;
@@ -8,6 +10,24 @@ struct UIVisibility
     bool showTechTree = true;
     bool showResources = true;
 };
+*/
+// struct UIVisibility
+// {
+//     bool showResearch = true;
+//     bool lastShowResearch = true;
+// };
+
+// template<typename HUD>
+// void SyncVisibility(bool& uiFlag, bool& lastFlag, HUD& hud)
+// {
+//     if (uiFlag != lastFlag)
+//     {
+//         hud.SetVisible(uiFlag);
+//         lastFlag = uiFlag;
+//     }
+
+//     uiFlag = hud.IsVisible();
+// }
 
 class TopBarHUD
 {

@@ -1,13 +1,14 @@
 #pragma once
 #include "../Core/header/TimeSystem.hpp"
+#include "IHUD.hpp"
 #include "imgui.h"
 
-class DateHUD
+class DateHUD : public IHUD
 {
 public:
     void Draw(TimeDataModel &time);
-    bool IsVisible() const { return m_visible; }
-    void SetVisible(bool v) { m_visible = v; }
+    bool IsVisible() const override { return m_visible; }
+    void SetVisible(bool v) override { m_visible = v; }
 
 private:
     ImVec2 m_position;

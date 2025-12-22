@@ -80,7 +80,7 @@ struct ResourceConstraints
     bool loadFromJson(const string &path);
 };
 
-class ResourcesManager
+class ResourcesManager 
 {
 public:
     ResourcesManager(ResourceConstraints &constraints, TimeDataModel &timeSystem);

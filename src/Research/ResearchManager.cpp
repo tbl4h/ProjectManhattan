@@ -139,7 +139,7 @@ bool ResearchManager::startResearch(const string& techId)
 }
 
 
-void ResearchManager::onDayPassed(const TimeDataModel&)
+void ResearchManager::onDayPassed(const TimeDataModel& time)
 {
     if (!m_activeResearchId.has_value())
         return;

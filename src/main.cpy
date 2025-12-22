@@ -9,23 +9,19 @@
 #include "backends/imgui_impl_sdl3.h"
 #include "backends/imgui_impl_opengl3.h"
 
-// UI
+#include "UI/DateHUD.hpp"
+#include "UI/ResearchHUD.hpp"
+#include "UI/ResourcesHUD.hpp"
 #include "UI/UIVisibility.hpp"
 #include "UI/UISync.hpp"
 #include "UI/TopBarHUD.hpp"
-#include "UI/DateHUD.hpp"
-#include "UI/ResourcesHUD.hpp"
-
-// Research MVC
-#include "UI/ResearchHUDController.hpp"
 #include "UI/ResearchListHUD.hpp"
 #include "UI/TechTreeHUD.hpp"
 
+#include <format>
+
 int main()
 {
-    // =======================
-    // SDL + OpenGL
-    // =======================
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window *window = SDL_CreateWindow(
@@ -36,7 +32,7 @@ int main()
     SDL_GLContext gl_context = SDL_GL_CreateContext(window);
 
     // =======================
-    // IMGUI
+    // IMGUI SETUP
     // =======================
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -52,14 +48,26 @@ int main()
     // =======================
     TimeDataModel timeModel;
 
-    ResourceConstraints resourceConstraints;
-    resourceConstraints.loadFromJson(
+    ResourceConstraints resourceModel;
+    resourceModel.loadFromJson(
         "./../data/resource_constraints_normal.json");
 
-    ResourcesManager resourcesManager(
-        resourceConstraints,
-        timeModel);
+    ResourcesManager resourcesManager(resourceModel, timeModel);
 
+    // =======================
+    // HUDs
+    // =======================
+    UIVisibility ui;
+    TopBarHUD topBarHUD;
+    DateHUD dateHUD;
+    ResearchHUDController researchHUDController();
+    
+    ResearchListHUD researchListHUD(researchHUDController);
+    ResourcesHUD resourcesHUD;
+
+    // =======================
+    // RESEARCH SYSTEM
+    // =======================
     ResearchManager researchManager(
         timeModel,
         resourcesManager);
@@ -67,32 +75,18 @@ int main()
     researchManager.loadFromJson(
         "./../data/technologies.json");
 
-    // =======================
-    // UI STATE
-    // =======================
-    UIVisibility ui;
-
-    // =======================
-    // HUDs (Views)
-    // =======================
-    TopBarHUD topBarHUD;
-    DateHUD dateHUD;
-    ResourcesHUD resourcesHUD;
-
-    // =======================
-    // RESEARCH MVC
-    // =======================
-    ResearchHUDController researchController(researchManager);
-
-    ResearchListHUD researchListHUD(researchController);
-    TechTreeHUD techTreeHUD(researchController);
-
-    // brak surowców → ResourcesHUD
+    // 🔴 KLUCZOWE POŁĄCZENIE: brak surowców → ResourcesHUD
     researchManager.addResearchMissingResourcesListener(
-        [&](const ResourceMissing &missing, const Technology &tech)
+        [&](const ResourceMissing &missing,
+            const Technology &tech)
         {
-            resourcesHUD.OnResearchMissingResources(missing, tech);
+            resourcesHUD.OnResearchMissingResources(
+                missing,
+                tech);
         });
+
+    // standardowe listenery ResearchHUD (completed, itp.)
+    researchHUD.RegisterListeners(researchManager);
 
     // =======================
     // MAIN LOOP
@@ -104,39 +98,83 @@ int main()
         while (SDL_PollEvent(&event))
         {
             ImGui_ImplSDL3_ProcessEvent(&event);
+
             if (event.type == SDL_EVENT_QUIT)
                 running = false;
         }
 
+        // ---- ImGui frame ----
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
 
         // =======================
-        // DRAW HUDs
+        // TOP BAR
         // =======================
         topBarHUD.Draw(ui);
 
-        // 🔁 Synchronizacja widoczności (JEDYNE MIEJSCE)
+        // =======================
+        // SYNC VISIBILITY
+        // =======================
         SyncVisibility(ui.showDate, ui.lastDate, dateHUD);
-        SyncVisibility(ui.showResearch, ui.lastResearch, researchListHUD);
-        SyncVisibility(ui.showTechTree, ui.lastTechTree, techTreeHUD);
+        SyncVisibility(ui.showResearch, ui.lastResearch, researchHUD);
         SyncVisibility(ui.showResources, ui.lastResources, resourcesHUD);
 
+        // TechTree jeśli osobna flaga:
+        researchHUD.SetVisibleTechTree(ui.showTechTree);
+        ui.showTechTree = researchHUD.IsTechTreeVisible();
+
         // =======================
-        // Rysowanie
+        // DRAW HUDs
         // =======================
         if (ui.showDate)
             dateHUD.Draw(timeModel);
-
         if (ui.showResearch)
-            researchListHUD.Draw();
-
+            researchHUD.Draw(researchManager);
         if (ui.showTechTree)
-            techTreeHUD.Draw();
-
+            researchHUD.DrawTechTree(researchManager);
         if (ui.showResources)
             resourcesHUD.Draw(resourcesManager);
+
+        // --- Research window ---
+        // static bool lastResearch = ui.showResearch;
+        // if (ui.showResearch != lastResearch)
+        // {
+        //     researchHUD.SetVisible(ui.showResearch);
+        //     lastResearch = ui.showResearch;
+        // }
+
+        // // --- Tech tree ---
+        // static bool lastTechTree = ui.showTechTree;
+        // if (ui.showTechTree != lastTechTree)
+        // {
+        //     researchHUD.SetVisibleTechTree(ui.showTechTree);
+        //     lastTechTree = ui.showTechTree;
+        // }
+
+        // // --- Resources ---
+        // static bool lastResources = ui.showResources;
+        // if (ui.showResources != lastResources)
+        // {
+        //     resourcesHUD.SetVisible(ui.showResources);
+        //     lastResources = ui.showResources;
+        // }
+
+        // if (ui.showDate)
+        //     dateHUD.Draw(timeModel);
+
+        // if (ui.showResearch)
+        //     researchHUD.Draw(researchManager);
+
+        // if (ui.showTechTree)
+        //     researchHUD.DrawTechTree(researchManager);
+
+        // if (ui.showResources)
+        //     resourcesHUD.Draw(resourcesManager);
+
+        // ui.showResources = resourcesHUD.IsVisible();
+        // ui.showResearch = researchHUD.IsVisible();
+        // ui.showTechTree = researchHUD.IsTechTreeVisible();
 
         // =======================
         // RENDER
