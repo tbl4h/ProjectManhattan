@@ -1,5 +1,5 @@
 #pragma once
-#include "IHUD.hpp"
+#include "../IHUD.hpp"
 #include "imgui.h"
 #include "ResearchHUDController.hpp"
 

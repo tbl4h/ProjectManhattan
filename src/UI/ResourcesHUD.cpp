@@ -31,7 +31,7 @@ void ResourcesHUD::EndHighlightIf(bool condition)
 // =====================================================
 // MAIN DRAW
 // =====================================================
-void ResourcesHUD::Draw(ResourcesManager& manager)
+void ResourcesHUD::Draw(ResourcesManager &manager)
 {
     UpdateHighlightTimer();
 
@@ -39,7 +39,6 @@ void ResourcesHUD::Draw(ResourcesManager& manager)
         return;
 
     ImGui::Begin("Resources & Personnel", &m_visible, m_flags);
-
 
     if (!m_visible)
     {
@@ -77,7 +76,7 @@ void ResourcesHUD::Draw(ResourcesManager& manager)
 // =====================================================
 // MONEY
 // =====================================================
-void ResourcesHUD::DrawMoney(ResourcesManager& manager)
+void ResourcesHUD::DrawMoney(ResourcesManager &manager)
 {
     static int moneyAmount = 1000;
 
@@ -86,7 +85,8 @@ void ResourcesHUD::DrawMoney(ResourcesManager& manager)
     EndHighlightIf(m_misingResources.money);
 
     ImGui::InputInt("Amount##money", &moneyAmount);
-    if (moneyAmount < 0) moneyAmount = 0;
+    if (moneyAmount < 0)
+        moneyAmount = 0;
 
     if (ImGui::Button("Add money"))
         manager.addMoney(moneyAmount);
@@ -97,11 +97,10 @@ void ResourcesHUD::DrawMoney(ResourcesManager& manager)
         manager.spendMoney(moneyAmount);
 }
 
-
 // =====================================================
 // MATERIALS
 // =====================================================
-void ResourcesHUD::DrawMaterials(ResourcesManager& manager)
+void ResourcesHUD::DrawMaterials(ResourcesManager &manager)
 {
     ImGui::Text("Materials");
 
@@ -117,15 +116,18 @@ void ResourcesHUD::DrawMaterials(ResourcesManager& manager)
 // =====================================================
 // PERSONNEL
 // =====================================================
-void ResourcesHUD::DrawPersonnel(ResourcesManager& manager)
+void ResourcesHUD::DrawPersonnel(ResourcesManager &manager)
 {
     ImGui::Text("Personnel");
 
-    auto row = [&](const char* label,
+    auto row = [&](const char *label,
                    bool highlight,
                    unsigned total,
                    unsigned working,
-                   unsigned available)
+                   unsigned available,
+                   int &inputValue,
+                   auto hireFn,
+                   auto fireFn)
     {
         HighlightIf(highlight);
 
@@ -135,38 +137,59 @@ void ResourcesHUD::DrawPersonnel(ResourcesManager& manager)
         ImGui::Text("Working: %u", working);
         ImGui::Text("Available: %u", available);
 
+        ImGui::PushID(label);
+
+        ImGui::InputInt("Amount", &inputValue);
+        inputValue = std::max(0, inputValue);
+
+        if (ImGui::Button("Hire"))
+        {
+            if (inputValue > 0)
+                hireFn(static_cast<unsigned>(inputValue));
+        }
+
+        ImGui::SameLine();
+
+        if (ImGui::Button("Fire"))
+        {
+            if (inputValue > 0)
+                fireFn(static_cast<unsigned>(inputValue));
+        }
+
+        ImGui::PopID();
+
         EndHighlightIf(highlight);
     };
 
-    row("Workers",
-        m_misingResources.workers,
-        manager.getTotalWorkers(),
-        manager.getWorkingWorkers(),
-        manager.getAvailableToHireWorkers());
+    // --- Workers ---
+    static int workersInput = 0;
+    row("Workers", m_misingResources.workers, manager.getTotalWorkers(), manager.getWorkingWorkers(), manager.getAvailableToHireWorkers(), workersInput, [&](unsigned v)
+        { manager.hireWorkers(v); }, [&](unsigned v)
+        { manager.fireWorkers(v); });
 
-    row("Scientists",
-        m_misingResources.scientists,
-        manager.getTotalScientists(),
-        manager.getWorkingScientists(),
-        manager.getAvailableToHireScientists());
+    // --- Scientists ---
+    static int scientistsInput = 0;
+    row("Scientists", m_misingResources.scientists, manager.getTotalScientists(), manager.getWorkingScientists(), manager.getAvailableToHireScientists(), scientistsInput, [&](unsigned v)
+        { manager.hireScientists(v); }, [&](unsigned v)
+        { manager.fireScientists(v); });
 
-    row("Engineers",
-        m_misingResources.engineers,
-        manager.getTotalEngineers(),
-        manager.getWorkingEngineers(),
-        manager.getAvailableToHireEngineers());
+    // --- Engineers ---
+    static int engineersInput = 0;
+    row("Engineers", m_misingResources.engineers, manager.getTotalEngineers(), manager.getWorkingEngineers(), manager.getAvailableToHireEngineers(), engineersInput, [&](unsigned v)
+        { manager.hireEngineers(v); }, [&](unsigned v)
+        { manager.fireEngineers(v); });
 
-    row("Army Personnel",
-        m_misingResources.army,
-        manager.getTotalArmyPersonnel(),
-        manager.getWorkingArmyPersonnel(),
-        manager.getAvailableToHireArmyPersonnel());
+    // --- Army ---
+    static int armyInput = 0;
+    row("Army Personnel", m_misingResources.army, manager.getTotalArmyPersonnel(), manager.getWorkingArmyPersonnel(), manager.getAvailableToHireArmyPersonnel(), armyInput, [&](unsigned v)
+        { manager.hireArmyPersonnel(v); }, [&](unsigned v)
+        { manager.fireArmyPersonnel(v); });
 }
 
 // =====================================================
 // FACILITY STATS
 // =====================================================
-void ResourcesHUD::DrawFacilityStats(ResourcesManager& manager)
+void ResourcesHUD::DrawFacilityStats(ResourcesManager &manager)
 {
     ImGui::Text("Facility Stats");
 
@@ -183,7 +206,7 @@ void ResourcesHUD::DrawFacilityStats(ResourcesManager& manager)
 // EVENT FROM RESEARCH MANAGER
 // =====================================================
 void ResourcesHUD::OnResearchMissingResources(
-    const ResourceMissing& missing)
+    const ResourceMissing &missing)
 {
     m_misingResources = missing;
 

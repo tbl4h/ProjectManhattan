@@ -17,9 +17,10 @@
 #include "UI/ResourcesHUD.hpp"
 
 // Research MVC
-#include "UI/ResearchHUDController.hpp"
-#include "UI/ResearchListHUD.hpp"
-#include "UI/TechTreeHUD.hpp"
+#include "UI/ResearchHUD/ResearchHUDController.hpp"
+#include "UI/ResearchHUD/ResearchListHUD.hpp"
+#include "UI/ResearchHUD/TechTreeHUD.hpp"
+#include "UI/ResearchHUD/ResearchCompletedPopupHUD.hpp"
 
 int main()
 {
@@ -78,11 +79,12 @@ int main()
     TopBarHUD topBarHUD;
     DateHUD dateHUD;
     ResourcesHUD resourcesHUD;
+    ResearchCompletedPopupHUD researchPopUpHUD;
 
     // =======================
     // RESEARCH MVC
     // =======================
-    ResearchHUDController researchController(researchManager);
+    ResearchHUDController researchController(researchManager,researchPopUpHUD);
 
     ResearchListHUD researchListHUD(researchController);
     TechTreeHUD techTreeHUD(researchController);
@@ -137,6 +139,7 @@ int main()
 
         if (ui.showResources)
             resourcesHUD.Draw(resourcesManager);
+        researchPopUpHUD.Draw();
 
         // =======================
         // RENDER

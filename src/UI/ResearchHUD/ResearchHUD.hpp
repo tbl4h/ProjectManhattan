@@ -1,7 +1,7 @@
 #pragma once
 #include "imgui.h"
-#include "../Research/ResearchManager.hpp"
-#include "IHUD.hpp"
+#include "../../Research/ResearchManager.hpp"
+#include "../IHUD.hpp"
 #include <string>
 
 using std::string;
